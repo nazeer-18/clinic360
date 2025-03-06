@@ -1,8 +1,8 @@
 const express = require('express');
 const { searchDoctor, getDoctor } = require('../controllers/doctorController');
-const authMiddleware = require('../middleware/authMiddleware');
+const {authenticate} = require('../middleware/authMiddleware');
 
 const router = express.Router();
-router.get("/search-doctor", searchDoctor);
-router.get('/doctor-profile', getDoctor);
+router.post("/search-doctor",authenticate, searchDoctor);
+router.get('/doctor-profile',authenticate, getDoctor);
 module.exports = router;

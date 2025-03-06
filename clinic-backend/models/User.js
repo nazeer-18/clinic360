@@ -34,21 +34,23 @@ const UserSchema = new mongoose.Schema({
             return this.role === 'Doctor';
         }
     },
-    specialization: {
+    specialization: [
+        {
+            type: String,
+            required: function () {
+                return this.role === 'Doctor';
+            }
+        }
+    ],
+    city: {
         type: String,
         required: function () {
             return this.role === 'Doctor';
         }
     },
-    city:{
-        type:String,
-        required: function(){
-            return this.role === 'Doctor';
-        }
-    },
-    state:{
+    state: {
         type: String,
-        required: function(){
+        required: function () {
             return this.role === 'Doctor';
         }
     },

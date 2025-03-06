@@ -4,19 +4,24 @@ const updateDoctorProfile = async(req,res) =>{
 
 }
 
-//search for doctors
 const searchDoctor = async(req,res)=>{
     try{
-        const {specialization, city, state, name} = req.query;
+        const {specializations, city, state, name} = req.body;
         let query = {role:'Doctor'}; // we are only searching for doctors
-        if(specialization) query.specialization = specialization;
+        if (specializations && specializations.length > 0) {
+            query.specialization = {
+                $all: specializations.map(spec => ({
+                    $elemMatch: { $regex: new RegExp(spec, 'i') }
+                }))
+            };
+        }
         if(city) query.city = city;
         if(state) query.state = state;
         if(name) query.name = {$regex:name,$options:'i'};
-        console.log(query);
         const doctors = await User.find(query,'-password');
         res.json(doctors);
     }catch(error){
+        console.log(error);
         res.status(500).json({message:'Error fetching doctors'});
     };
 };

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getAppointments } from "../services/appointmentsService";
 import { FaCalendarAlt, FaClock, FaLocationArrow, FaUserMd, FaCalendarDay } from "react-icons/fa";
 import { Button } from 'react-bootstrap';
+import { cancelAppointment } from '../services/appointmentsService';
 
 const ViewAppointments = () => {
     const location = useLocation();
@@ -67,7 +68,17 @@ const ViewAppointments = () => {
     }, [userId, currentIST]);
 
     const handleCancelAppointment = (appointmentId) => {
-        navigate(`/cancel-appointment/${appointmentId}`);
+        const isConfirmed = window.confirm("Are you sure you want to cancel this appointment?");
+        if (isConfirmed) {
+            cancelAppointment(appointmentId)
+                .then(() => {
+                    alert("Appointment canceled successfully");
+                })
+                .catch((error) => {
+                    console.error("Error canceling appointment:", error);
+                    alert("There was an error canceling the appointment.");
+                });
+        }
     };
 
     const renderAppointments = (appointmentsList, status) => {

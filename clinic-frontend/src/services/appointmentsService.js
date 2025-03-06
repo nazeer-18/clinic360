@@ -11,6 +11,6 @@ export const bookAppointment = async (appointmentData) => {
 };
 
 export const cancelAppointment = async (appointmentId) => {
-    const response = await API.delete(`/api/appointments/?id=${appointmentId}`);
+    const response = await API.post(`/api/appointments/cancel-appointment?id=${appointmentId}`);
     return response.data;
 };

@@ -20,7 +20,7 @@ const Dashboard = () => {
                     navigate(`/view-appointments/?id=${userId}`);  // Navigate to view appointments page
                     break;
                 case "Cancel Appointment":
-                    navigate("/cancel-appointment");  // Navigate to cancel appointment page
+                    navigate(`/view-appointments/?id=${userId}`);  // Navigate to cancel appointment page
                     break;
                 default:
                     break;

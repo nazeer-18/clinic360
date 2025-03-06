@@ -1,0 +1,42 @@
+[
+  {
+    "email":"dr.johndoe@example.com",
+    "password": "12345"
+  },
+  {
+    "email": "dr.sarahsmith@example.com",
+    "password": "54321"
+  },
+  {
+    "email": "dr.rajkumar@example.com",
+    "password": "password123"
+  },
+  {
+    "email": "dr.emilywhite@example.com",
+    "password": "securepassword"
+  },
+  {
+    "email": "dr.michaeljohnson@example.com",
+    "password": "abcd1234"
+  },
+  {
+    "email": "dr.lindabrown@example.com",
+    "password": "qwerty123"
+  },
+  {
+    "email": "dr.ayeshakhan@example.com",
+    "password": "a12345b"
+  },
+  {
+    "email": "dr.peterparker@example.com",
+    "password": "spiderman123"
+  },
+  {
+    "email": "dr.marialopez@example.com",
+    "password": "mypassword123"
+  },
+  {
+    "email": "dr.nehagupta@example.com",
+    "password": "doctor123"
+  }
+]

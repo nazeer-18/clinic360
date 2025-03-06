@@ -7,7 +7,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import DoctorSeach from './pages/DoctorsSearch';
 import SearchedDoctors from "./pages/SearchedDoctors";
-import DoctorProfile from "./pages/DoctorProfile"
+import DoctorProfile from "./pages/DoctorProfile";
+import ViewAppointments from "./pages/ViewAppointments";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/search-doctors" element={<DoctorSeach />} />
             <Route path="/searched-doctors" element={<SearchedDoctors />} />
             <Route path="/doctor-profile/" element={<DoctorProfile />} />
+            <Route path="/view-appointments/" element={<ViewAppointments />} />
           </Routes>
         </div>
         <Footer />

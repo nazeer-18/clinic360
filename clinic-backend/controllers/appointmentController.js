@@ -3,6 +3,16 @@ const Appointment = require('../models/Appointment');
 const User = require('../models/User');
 const sendEmail = require('../middleware/emailService');
 
+const getAppointments = async (req, res) => {
+    try {
+        const id = req.query.id;
+        const appointments = await Appointment.find({ patientId: id });
+        res.json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const bookAppointment = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -49,6 +59,7 @@ const bookAppointment = async (req, res) => {
         const appointment = new Appointment({
             doctorId,
             patientId,
+            doctorName,
             location,
             date,
             startTime,
@@ -76,7 +87,7 @@ const cancelAppointment = async (req, res) => {
     try {
         session.startTransaction();
         const appointment = await Appointment.findById(id).session(session);
-        const {doctorId,patientId,date,startTime,endTime} = appointment;
+        const { doctorId, patientId, date, startTime, endTime } = appointment;
         const Doctor = await User.findById(doctorId);
         const Patient = await User.findById(patientId);
         const doctorEmail = Doctor.email;
@@ -97,7 +108,7 @@ const cancelAppointment = async (req, res) => {
         appointment.status = 'Cancelled';
         await appointment.save({ session });
 
-        
+
         await sendEmail(patientEmail, "Appointment Canceled", `Your appointment with Dr. ${doctorName} on ${date} from ${startTime} - ${endTime} has been canceled.`);
         await sendEmail(doctorEmail, "Appointment Canceled", `Your appointment with ${patientName} on ${date} from ${startTime} -${endTime} has been canceled.`);
         await session.commitTransaction();
@@ -110,4 +121,4 @@ const cancelAppointment = async (req, res) => {
     }
 };
 
-module.exports = { bookAppointment, cancelAppointment };
+module.exports = { getAppointments, bookAppointment, cancelAppointment };

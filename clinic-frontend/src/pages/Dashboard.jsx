@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
     const [user, setUser] = useState({ name: "nazeer" });
+    const userId = '67c8b144d046bf76b737f9a3';
     const navigate = useNavigate();
 
     // Function to handle button clicks and navigate to the corresponding page
@@ -16,7 +17,7 @@ const Dashboard = () => {
                     navigate("/book-appointment");  // Navigate to book appointment page
                     break;
                 case "View Appointments":
-                    navigate("/appointments");  // Navigate to view appointments page
+                    navigate(`/view-appointments/?id=${userId}`);  // Navigate to view appointments page
                     break;
                 case "Cancel Appointment":
                     navigate("/cancel-appointment");  // Navigate to cancel appointment page

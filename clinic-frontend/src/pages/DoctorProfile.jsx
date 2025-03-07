@@ -21,7 +21,6 @@ const DoctorProfile = () => {
             try {
                 const doctorData = await getDoctor(doctorId); // Fetch doctor data using the id
                 setDoctor(doctorData);
-                console.log(doctorData);
             } catch (error) {
                 console.error("Error fetching doctor data:", error);
             } finally {
@@ -39,6 +38,11 @@ const DoctorProfile = () => {
     if (!doctor) {
         return <div>Doctor not found</div>;
     }
+
+    // Handle Book Appointment button click
+    const handleBookAppointmentClick = () => {
+        navigate(`/book-appointment/?id=${doctor._id}`); // Navigate to Book Appointment page with the doctor's id
+    };
 
     return (
         <div className="container mx-auto p-8 bg-gray-100 min-h-screen mb-10">
@@ -93,6 +97,16 @@ const DoctorProfile = () => {
                             </div>
                         ))}
                     </div>
+                </div>
+
+                {/* Book Appointment Button */}
+                <div className="mt-6 text-center">
+                    <button
+                        className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+                        onClick={handleBookAppointmentClick}
+                    >
+                        Book Appointment
+                    </button>
                 </div>
             </div>
         </div>

@@ -11,6 +11,11 @@ const SearchedDoctors = () => {
         navigate(`/doctor-profile/?id=${doctorId}`); // Navigate to the doctor's profile page
     };
 
+    // Handle "Book Appointment" button click for each doctor
+    const handleBookAppointmentClick = (doctorId) => {
+        navigate(`/book-appointment/?id=${doctorId}`); // Navigate to the Book Appointment page with the doctor's id
+    };
+
     return (
         <div className="container mx-auto p-10 mb-10">
             <div className="text-center text-2xl font-semibold mb-6">
@@ -45,11 +50,20 @@ const SearchedDoctors = () => {
                                 {doctor.specialization.join(", ")}
                             </div>
 
+                            {/* Explore Button */}
                             <button
                                 className="mt-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
                                 onClick={() => handleExploreClick(doctor._id)}
                             >
                                 Explore
+                            </button>
+
+                            {/* Book Appointment Button for each doctor */}
+                            <button
+                                className="mt-4 bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+                                onClick={() => handleBookAppointmentClick(doctor._id)}
+                            >
+                                Book Appointment
                             </button>
                         </div>
                     ))

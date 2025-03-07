@@ -82,6 +82,9 @@ const ViewAppointments = () => {
     };
 
     const renderAppointments = (appointmentsList, status) => {
+        if (appointmentsList.length === 0) {
+            return <p className="font-bold">No appointments found!</p>;
+        }        
         return appointmentsList.map((appointment) => (
             <div key={appointment._id} className="border p-4 mb-4 rounded-lg shadow-md">
                 <div className="flex items-center mt-2">

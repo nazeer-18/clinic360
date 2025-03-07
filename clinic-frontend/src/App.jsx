@@ -9,6 +9,7 @@ import DoctorSeach from './pages/DoctorsSearch';
 import SearchedDoctors from "./pages/SearchedDoctors";
 import DoctorProfile from "./pages/DoctorProfile";
 import ViewAppointments from "./pages/ViewAppointments";
+import BookAppointment from './pages/BookAppointment';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/searched-doctors" element={<SearchedDoctors />} />
             <Route path="/doctor-profile/" element={<DoctorProfile />} />
             <Route path="/view-appointments/" element={<ViewAppointments />} />
+            <Route path="/book-appointment/" element={<BookAppointment />} />
           </Routes>
         </div>
         <Footer />

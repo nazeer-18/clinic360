@@ -13,6 +13,25 @@ const getAppointments = async (req, res) => {
     }
 }
 
+const getBookedSlots = async (req, res) => {
+    const { doctorId, date } = req.body;
+    try {
+        const bookedSlots = await Appointment.find({ doctorId, date, status: "Booked" }).select('startTime endTime'); // Only select the start and end time of the appointment
+        if (!bookedSlots || bookedSlots.length === 0) {
+            return res.status(200).json([]);
+        }
+        // Transform the booked slots to the required format
+        const bookedIntervals = bookedSlots.map(appointment => ({
+            startTime: appointment.startTime,
+            endTime: appointment.endTime
+        }));
+        return res.status(200).json(bookedIntervals); // Send back booked intervals
+    } catch (error) {
+        console.error("Error fetching booked slots:", error);
+        return res.status(500).json({ message: "Error fetching booked slots" });
+    }
+};
+
 const bookAppointment = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -54,7 +73,7 @@ const bookAppointment = async (req, res) => {
         if (existingAppointment) {
             await session.abortTransaction();
             session.endSession();
-            return res.status(400).json({ message: 'slot is already booked , Please choose another slot' });
+            return res.status(400).json({ message: 'slot is already booked , Please choose another slot',success: false });
         }
         const appointment = new Appointment({
             doctorId,
@@ -73,11 +92,11 @@ const bookAppointment = async (req, res) => {
         await sendEmail(doctorEmail, "New Appointment", `You have a new appointment with ${patientName} on ${date} from ${startTime} - ${endTime}.`);
         await session.commitTransaction();
         session.endSession();
-        return res.status(201).json({ message: 'Appointment booked successfully!', appointment });
+        return res.status(201).json({ message: 'Appointment booked successfully!', appointment,success: true });
     } catch (error) {
         await session.abortTransaction();
         session.endSession();
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message,success: false });
     }
 };
 
@@ -121,4 +140,4 @@ const cancelAppointment = async (req, res) => {
     }
 };
 
-module.exports = { getAppointments, bookAppointment, cancelAppointment };
+module.exports = { getAppointments, bookAppointment, cancelAppointment, getBookedSlots };

@@ -5,8 +5,13 @@ export const getAppointments = async (id) => {
     return response.data;
 };
 
+export const getBookedSlots = async(appointmentData) => {
+    const response = await API.post('/api/appointments/get-booked-slots', appointmentData);
+    return response.data;
+}
+
 export const bookAppointment = async (appointmentData) => {
-    const response = await API.post('/api/appointments', appointmentData);
+    const response = await API.post('/api/appointments/book-appointment', appointmentData);
     return response.data;
 };
 

@@ -39,4 +39,29 @@ const getDoctor = async(req,res) =>{
     };
 }
 
-module.exports = {searchDoctor,getDoctor};
+const getDoctorLocation =  async (req, res) => {
+    const { doctorId, startTime, endTime, day } = req.body;
+    try {
+        const doctor = await User.findById(doctorId);
+        if (!doctor || doctor.role !== 'Doctor') {
+            return res.status(404).json({ message: 'Doctor not found or invalid doctor ID' });
+        }
+        const location = doctor.locations.find(location => {
+            return location.availabilitySlots.some(slot => {
+                const slotStartTime = slot.startTime;
+                const slotEndTime = slot.endTime;
+                return slot.day === day && startTime >= slotStartTime && endTime <= slotEndTime;
+            });
+        });
+        if (location) {
+            return res.status(200).json({ location: location.locationName });
+        } else {
+            return res.status(404).json({ message: 'No location found for the specified time and weekday' });
+        }
+    } catch (error) {
+        console.error('Error fetching doctor location:', error);
+        return res.status(500).json({ message: 'Error fetching doctor location' });
+    }
+};
+
+module.exports = {searchDoctor,getDoctor,getDoctorLocation};

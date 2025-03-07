@@ -14,7 +14,7 @@ const Dashboard = () => {
                     navigate("/search-doctors");  // Navigate to search doctors page
                     break;
                 case "Book Appointment":
-                    navigate("/book-appointment");  // Navigate to book appointment page
+                    navigate("/search-doctors");  // Navigate to book appointment page
                     break;
                 case "View Appointments":
                     navigate(`/view-appointments/?id=${userId}`);  // Navigate to view appointments page

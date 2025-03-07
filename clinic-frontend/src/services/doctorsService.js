@@ -14,3 +14,13 @@ export const getDoctor = async (doctorId) => {
         throw error;
     }
 };
+
+export const getDoctorLocation = async(data) => {
+    try{
+        const response = await API.post('/api/doctor/get-doctor-location',data);
+        return response.data;
+    }catch(error){
+        console.error("Error fetching location:", error);
+        throw error;
+    }
+}

@@ -59,6 +59,7 @@ const SearchDoctors = () => {
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
+                    placeholder="Enter city if you know"
                     className="w-full p-2 border border-gray-300 rounded-lg"
                 />
             </div>
@@ -70,6 +71,7 @@ const SearchDoctors = () => {
                     type="text"
                     value={state}
                     onChange={(e) => setState(e.target.value)}
+                    placeholder="Enter state if you know"
                     className="w-full p-2 border border-gray-300 rounded-lg"
                 />
             </div>
@@ -81,6 +83,7 @@ const SearchDoctors = () => {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter Name to match partially"
                     className="w-full p-2 border border-gray-300 rounded-lg"
                 />
             </div>

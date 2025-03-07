@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../context/UserContext';
 
 const Dashboard = () => {
-    const [user, setUser] = useState({ name: "nazeer" });
-    const userId = '67c8b144d046bf76b737f9a3';
+    const { user} = useContext(UserContext);
     const navigate = useNavigate();
 
     // Function to handle button clicks and navigate to the corresponding page
@@ -17,10 +17,10 @@ const Dashboard = () => {
                     navigate("/search-doctors");  // Navigate to book appointment page
                     break;
                 case "View Appointments":
-                    navigate(`/view-appointments/?id=${userId}`);  // Navigate to view appointments page
+                    navigate(`/view-appointments/?id=${user.id}`);  // Navigate to view appointments page
                     break;
                 case "Cancel Appointment":
-                    navigate(`/view-appointments/?id=${userId}`);  // Navigate to cancel appointment page
+                    navigate(`/view-appointments/?id=${user.id}`);  // Navigate to cancel appointment page
                     break;
                 default:
                     break;

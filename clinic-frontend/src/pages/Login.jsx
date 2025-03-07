@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
+import { UserContext } from '../context/UserContext';
 
 const Login = () => {
+    const { clearUserData,setUserData} = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -18,8 +20,8 @@ const Login = () => {
         try {
             const res = await loginUser({ email, password });
             if (res.token) {
-                localStorage.setItem("token", res.token);
-                setMessage("Login Successful!");
+                setUserData(res);
+                setMessage(res.message);
                 setMessageStyle("bg-green-500 text-white font-bold p-2 rounded");
                 setTimeout(() => navigate("/dashboard"), 2000);
             } else {
@@ -27,6 +29,7 @@ const Login = () => {
                 setMessageStyle("bg-red-500 text-white font-bold p-2 rounded");
             }
         } catch (error) {
+            clearUserData();
             console.log(error.response?.data?.message || "Server error");
             setMessage(error.response?.data?.message || "Server error");
             setMessageStyle("bg-red-500 text-white font-bold p-2 rounded");

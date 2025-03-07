@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getDoctor, getDoctorLocation } from '../services/doctorsService';
 import { bookAppointment, getBookedSlots } from '../services/appointmentsService';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { UserContext } from '../context/UserContext';
 
 const BookAppointment = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { user} = useContext(UserContext);
     const doctorId = new URLSearchParams(location.search).get("id");
-    const patientId = '67c8b144d046bf76b737f9a3'; // You can replace this with the actual patient ID from your state or context
+    const patientId = user.id;
     const [weekday, setWeekday] = useState('');
     const [doctor, setDoctor] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -155,7 +157,7 @@ const BookAppointment = () => {
                 setMessageType('success');
                 setTimeout(() => setMessage(''), 3000);
                 setTimeout(() => {
-                    navigate('/view-appointments');
+                    navigate(`/view-appointments/?id=${patientId}`);
                 }, 3000);
             } else {
                 setMessage(result.message);
